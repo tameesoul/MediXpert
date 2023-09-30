@@ -1,14 +1,13 @@
 @extends('layouts.dashboard')
-
-
 @section('content')
-    @section('title','Starter Page')
 
+    @section('title','Starter Page')
     @section('breadcrumb')
        @parent
     <li class="breadcrumb-item active">Starter Page</li>
-
     @endsection
+
+   
     <!-- Main content -->
     <div class="content">    
       <div class="container-fluid">
