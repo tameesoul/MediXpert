@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 use App\Models\Category;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -40,33 +41,46 @@ class CategoriesController extends Controller
          ]);
         $cat =  Category::create($request->all());
          ///PRG //// Post Redirect 
-         return redirect(route('categories.index'))
+         return redirect(route('dashboard.categories.index'))
          ->with('success','category added successfully');
     }
-
     public function show(string $id)
     {
+       
         
     }
 
     public function edit(string $id)
     {
-        //
-    }
+        try{
+            $category = Category::findOrfail($id);
+        } catch (Exception $e) {
+            return redirect()->route('dashboard.categories.index')
+            ->with('info','category is not found');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
+        //select * from categories where pareant_id is null or  <> $id and id <> id
+        $parents = Category::
+        where('id','<>',$id)   
+        ->whereNOTNull('parent_id')                
+        ->Orwhere('parent_id','<>',$id)->get();
+        return view('dashboard.categories.edit',compact('category','parents'));
+    }
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::findOrfail($id);
+        $category->updated($request->all());
+        return redirect()->route('dashboard.categories.index')
+        ->with('success','category updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        // $category = Category::findOrfail($id);
+        // $category->delete();
+        Category::where('id','=',$id)->delete();
+        //Category::destroy($id);
+        return redirect()->route('dashboard.categories.index')
+        ->with('success','category deleted');
     }
 }
