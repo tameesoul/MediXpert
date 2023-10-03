@@ -60,10 +60,11 @@ class CategoriesController extends Controller
         }
 
         //select * from categories where pareant_id is null or  <> $id and id <> id
-        $parents = Category::
-        where('id','<>',$id)   
-        ->whereNOTNull('parent_id')                
-        ->Orwhere('parent_id','<>',$id)->get();
+        $parents = Category::where('id','<>',$id)
+            ->where(function($query)use($id){
+            $query->whereNull('parent_id')
+            ->orWhere('parent_id','<>',$id);
+        })->get();
         return view('dashboard.categories.edit',compact('category','parents'));
     }
     public function update(Request $request, string $id)
