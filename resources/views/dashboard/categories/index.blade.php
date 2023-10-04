@@ -27,6 +27,7 @@
         <th scope="col">Name</th>
         <th scope="col">ParentName</th>
         <th scope="col">description</th>
+        <th scope="col">image</th>
         <th scope="col">Created_At</th>
       </tr>
     </thead>
@@ -36,6 +37,7 @@
           <td>{{$category->name}}</td>
           <td>{{$category->parent_id}}</td>
           <td>{{$category->description}}</td>
+          <td><img src="{{asset('storage/'.$category->image)}}" alt="" height="80"></td>
           <td>{{$category->created_at}}</td>
           <td>
               <a href="{{route('dashboard.categories.edit',$category->id)}}" class="link-primary">edit</a>

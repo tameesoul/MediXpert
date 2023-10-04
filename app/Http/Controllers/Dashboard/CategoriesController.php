@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Dashboard;
 use App\Models\Category;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,8 @@ class CategoriesController extends Controller
     public function create()
     {
         $parents = Category::all();
-        return view('dashboard.categories.create',compact('parents'));
+        $category = new Category();
+        return view('dashboard.categories.create',compact('category','parents'));
     }
 
     public function store(Request $request)
@@ -36,11 +38,23 @@ class CategoriesController extends Controller
          //// insted of $request->all(); 
          ///and save() method 
          ///mass assignment require add fillable or gurded to the model to prevent added non related inputs
-         $request->merge([
-            'slug'=>Str::slug($request->post('name'))
-         ]);
-        $cat =  Category::create($request->all());
-         ///PRG //// Post Redirect 
+         $data = $request->except('image');
+            $request->merge([
+                'slug'=>Str::slug($request->post('name'))
+             ]);
+         if($request->hasFile('image'))
+         {
+            $file = $request->file('image'); 
+            $path = $file->store('uploads',[
+                'disk'=>'public'
+            ]); //// take the file object to the local disk , store function take 2  or1
+            /// paramters  "uploads " the file name in the app dir by this you will store the file within loacl desk but 
+            /// browser cant get this disk , $path is image path 
+            $data['image'] = $path; 
+         }
+         ///mass assignment
+        $cat =  Category::create($data);
+         ///PRG //// Post Redirect GET
          return redirect(route('dashboard.categories.index'))
          ->with('success','category added successfully');
     }
@@ -68,19 +82,38 @@ class CategoriesController extends Controller
         return view('dashboard.categories.edit',compact('category','parents'));
     }
     public function update(Request $request, string $id)
-    {
-        $category = Category::findOrfail($id);
-        $category->updated($request->all());
-        return redirect()->route('dashboard.categories.index')
-        ->with('success','category updated');
+{
+    $category = Category::findOrFail($id);
+    $old_image = $category->image;
+    $data = $request->except('image');
+    $request->merge([
+        'slug' => Str::slug($request->post('name'))
+    ]);
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $path = $file->store('uploads', [
+            'disk' => 'public'
+        ]);
+        // $file->getClientOriginalName();
+        // $file->getSize();
+        // $file->getClientOriginalExtension();
+        $data['image'] = $path;
     }
-
+    $category->update($data);
+    if ($old_image && isset($data['image'])) {
+        Storage::disk('public')->delete($old_image);
+    }
+    return redirect()->route('dashboard.categories.index')
+        ->with('success', 'Category updated');
+}
     public function destroy(string $id)
     {
-        // $category = Category::findOrfail($id);
-        // $category->delete();
-        Category::where('id','=',$id)->delete();
-        //Category::destroy($id);
+        $category = Category::findOrFail($id);
+        $category->delete();
+        if($category->image)
+        {
+            Storage::disk('public')->delete($category->image);
+        }
         return redirect()->route('dashboard.categories.index')
         ->with('success','category deleted');
     }
