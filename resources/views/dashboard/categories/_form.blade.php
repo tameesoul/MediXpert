@@ -1,4 +1,12 @@
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="form-group">
     <label for="">categoryname</label>
     <input type="text" , name="name" class="form-control" value="{{$category->name}}" >
@@ -31,7 +39,7 @@
         <label class="form-check-label" for="status_active">Active</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="status" id="status_archived" value="archived" @checked($category->status =='Archived')>
+        <input class="form-check-input" type="radio" name="status" id="status_archived" value="archived" @checked($category->status =='archived')>
         <label class="form-check-label" for="status_archived">Archived</label>
     </div>
 </div>

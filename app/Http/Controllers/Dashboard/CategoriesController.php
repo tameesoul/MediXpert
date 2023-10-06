@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +18,7 @@ class CategoriesController extends Controller
 
     public function create()
     {
+
         $parents = Category::all();
         $category = new Category();
         return view('dashboard.categories.create',compact('category','parents'));
@@ -24,24 +26,11 @@ class CategoriesController extends Controller
 
     public function store(Request $request)
     {
-        //// $request is an object 
-
-        // $request->input('name'); //// not a good way because you can send data in paramter
-        // $request->post('name'); //// more specific it only accept data from the form 
-        // $request->query('name'); //// only from the uri
-        // $request->name; 
-        // $request['name']; //// not a good way 2 you might think that the $request it an array but it an object 
-         //// array of the input data
-         /// the kay is the name of prob and the value the input
-        // $category =  Category::create($request->all());
-        // $category->save();
-         //// insted of $request->all(); 
-         ///and save() method 
-         ///mass assignment require add fillable or gurded to the model to prevent added non related inputs
-         $data = $request->except('image');
+        $request->validate(Category::rules());
             $request->merge([
                 'slug'=>Str::slug($request->post('name'))
              ]);
+             $data = $request->except('image');
          if($request->hasFile('image'))
          {
             $file = $request->file('image'); 
@@ -53,7 +42,7 @@ class CategoriesController extends Controller
             $data['image'] = $path; 
          }
          ///mass assignment
-        $cat =  Category::create($data);
+         Category::create($data);
          ///PRG //// Post Redirect GET
          return redirect(route('dashboard.categories.index'))
          ->with('success','category added successfully');
@@ -81,8 +70,8 @@ class CategoriesController extends Controller
         })->get();
         return view('dashboard.categories.edit',compact('category','parents'));
     }
-    public function update(Request $request, string $id)
-{
+    public function update(CategoryRequest $request, string $id)
+    {
     $category = Category::findOrFail($id);
     $old_image = $category->image;
     $data = $request->except('image');
