@@ -37,7 +37,7 @@ class Category extends Model
             ],
             
             'parent_id' => ['nullable', 'integer', 'exists:categories,id'],
-            'description' => ['string', 'min:10'],
+            'description' => ['min:10'],
             'image' => ['file', 'mimes:jpg,bmp,png', 'max:2048'],
             'status' => ['in:active,archived']
         ];

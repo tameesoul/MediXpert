@@ -6,18 +6,7 @@
 <li class="breadcrumb-item active">categories</li>
 @endsection
 
-@if (session()->has('success'))
-
-<div class="alert alert">
-    {{session('success')}}
-</div>
-@endif
-@if (session()->has('info'))
-
-<div class="alert alert">
-    {{session('info')}}
-</div>
-@endif
+<x-alert/>
 <div class="mb-4">
     <a href="{{route('dashboard.categories.create')}}" class="btn btn-larg btn-outline-primary">Create</a>
 </div>

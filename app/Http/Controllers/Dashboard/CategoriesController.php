@@ -24,26 +24,14 @@ class CategoriesController extends Controller
         return view('dashboard.categories.create',compact('category','parents'));
     }
 
-    public function store(Request $request)
+    public function store( Request $request)
     {
-        $request->validate(Category::rules());
-            $request->merge([
-                'slug'=>Str::slug($request->post('name'))
-             ]);
-             $data = $request->except('image');
-         if($request->hasFile('image'))
-         {
-            $file = $request->file('image'); 
-            $path = $file->store('uploads',[
-                'disk'=>'public'
-            ]); //// take the file object to the local disk , store function take 2  or1
-            /// paramters  "uploads " the file name in the app dir by this you will store the file within loacl desk but 
-            /// browser cant get this disk , $path is image path 
-            $data['image'] = $path; 
-         }
-         ///mass assignment
+        $request->merge([
+            'slug'=>Str::slug($request->post('name'))
+          ]);
+        $data = $request->except('image');
+        $data['image'] = $this->uploadimage($request);
          Category::create($data);
-         ///PRG //// Post Redirect GET
          return redirect(route('dashboard.categories.index'))
          ->with('success','category added successfully');
     }
@@ -61,7 +49,6 @@ class CategoriesController extends Controller
             return redirect()->route('dashboard.categories.index')
             ->with('info','category is not found');
         }
-
         //select * from categories where pareant_id is null or  <> $id and id <> id
         $parents = Category::where('id','<>',$id)
             ->where(function($query)use($id){
@@ -70,29 +57,28 @@ class CategoriesController extends Controller
         })->get();
         return view('dashboard.categories.edit',compact('category','parents'));
     }
-    public function update(CategoryRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
     $category = Category::findOrFail($id);
     $old_image = $category->image;
-    $data = $request->except('image');
+
     $request->merge([
-        'slug' => Str::slug($request->post('name'))
-    ]);
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $path = $file->store('uploads', [
-            'disk' => 'public'
-        ]);
-        // $file->getClientOriginalName();
-        // $file->getSize();
-        // $file->getClientOriginalExtension();
-        $data['image'] = $path;
-    }
-    $category->update($data);
-    if ($old_image && isset($data['image'])) {
-        Storage::disk('public')->delete($old_image);
-    }
-    return redirect()->route('dashboard.categories.index')
+            'slug'=>Str::slug($request->post('name'))
+          ]);
+
+        $data = $request->except('image');
+
+        $data['image'] = $this->uploadimage($request);
+
+        $category->update($data);
+
+        if($old_image && isset($data['image']))
+
+         {
+        Storage:: disk('public')->delete($old_image);
+         }
+
+         return redirect()->route('dashboard.categories.index')
         ->with('success', 'Category updated');
 }
     public function destroy(string $id)
@@ -105,5 +91,19 @@ class CategoriesController extends Controller
         }
         return redirect()->route('dashboard.categories.index')
         ->with('success','category deleted');
+    }
+
+    public function uploadimage(Request $request)
+    {
+        if(!$request->hasFile('image'))
+                 return;
+        {
+           $file = $request->file('image');
+           $path =   $file->store('uploads',[
+                'disk'=>'public'
+            ]);
+            
+            return $path;
+        }
     }
 }
