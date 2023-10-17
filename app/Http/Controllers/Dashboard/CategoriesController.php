@@ -24,8 +24,10 @@ class CategoriesController extends Controller
         return view('dashboard.categories.create',compact('category','parents'));
     }
 
-    public function store( Request $request)
+    public function store( CategoryRequest $request)
     {
+
+      //  $request->validate(Category::rules());
         $request->merge([
             'slug'=>Str::slug($request->post('name'))
           ]);
@@ -57,8 +59,9 @@ class CategoriesController extends Controller
         })->get();
         return view('dashboard.categories.edit',compact('category','parents'));
     }
-    public function update(Request $request, string $id)
+    public function update( CategoryRequest $request, string $id)
     {
+       // $request->validate(Category::rules($id));
     $category = Category::findOrFail($id);
     $old_image = $category->image;
 
@@ -68,11 +71,15 @@ class CategoriesController extends Controller
 
         $data = $request->except('image');
 
-        $data['image'] = $this->uploadimage($request);
+       $new_image = $this->uploadimage($request);
+       if($new_image)
+       {
+        $data['image']= $new_image;
+       }
 
         $category->update($data);
 
-        if($old_image && isset($data['image']))
+        if($old_image && $new_image)
 
          {
         Storage:: disk('public')->delete($old_image);

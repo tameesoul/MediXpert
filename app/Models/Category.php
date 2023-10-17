@@ -16,30 +16,21 @@ class Category extends Model
         'name','parent_id','slug','description','image','status'
     ];
 
-    public static function rules($id = 0)
+    public static function rules($id =0)
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'min:3',
-                Rule::unique('categories', 'name')->ignore($id),
-                function($attributes,$value,$fails)
-                {
-                    if(strtolower($value)=='poopy')
-                    {
-                        $fails('this name is not allowed');
-                    }
-                }, /// way to set custom rules
-
-                new filters('cows') //// custom class using php artisan make:rule 
-               
+            'name'=>[
+                'required', 'min:3', 'max:250', 'unique:categories,name,' . $id
             ],
-            
-            'parent_id' => ['nullable', 'integer', 'exists:categories,id'],
-            'description' => ['min:10'],
-            'image' => ['file', 'mimes:jpg,bmp,png', 'max:2048'],
-            'status' => ['in:active,archived']
-        ];
+            'parent_id'=>[
+                'nullable','int','exists:categories,id'
+            ],
+            'image'=>[
+                'image'
+            ],
+            'Status'=>[
+                'in:active,archived'
+            ]
+            ];
     }
 }
