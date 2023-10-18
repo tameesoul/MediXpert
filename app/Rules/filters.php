@@ -20,9 +20,9 @@ class filters implements ValidationRule
      *
      * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
      */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
+    public  function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if($value ==$this->forbidden)
+        if( in_array($value,$this->forbidden))
         {
             $fail('this name not allowed');
         }

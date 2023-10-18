@@ -20,7 +20,16 @@ class Category extends Model
     {
         return [
             'name'=>[
-                'required', 'min:3', 'max:250', 'unique:categories,name,' . $id
+                'required', 'min:3', 'max:250', 'unique:categories,name,' . $id,
+
+                // function($attribute,$value,$fails)
+                // {
+                //     if(strtolower($value) == 'kill')
+                //     {
+                //         return $fails('this name is not allowed '); //// use "php artisan make:filter" to set class for rules
+                //     }
+                // },
+                new filters(['kill','die','isreal']),
             ],
             'parent_id'=>[
                 'nullable','int','exists:categories,id'
