@@ -1,3 +1,19 @@
-<div>
-    <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-</div>
+{{-- @extends('layouts.dashboard') --}}
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        
+        @foreach ($items as $item)    
+      <li class="nav-item">
+        <a href="{{$item['route']}}" class="nav-link {{$item['route'] == $active? 'active' : ''}} ">
+          <i class="{{$item['icon']}}"></i>
+          <p>
+            {{$item['title']}}
+            @if (isset($item['badge']))
+            <span class="right badge badge-danger">{{$item['badge']}}</span>
+            @endif
+          </p>
+        </a>
+      </li>
+      @endforeach
+    </ul>
+  </nav>
