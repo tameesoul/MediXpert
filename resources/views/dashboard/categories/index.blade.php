@@ -6,7 +6,8 @@
 <li class="breadcrumb-item active">categories</li>
 @endsection
 
-<x-alert/>
+<x-alert  type="success"/>
+<x-alert  type="info"/>
 <div class="mb-4">
     <a href="{{route('dashboard.categories.create')}}" class="btn btn-larg btn-outline-primary">Create</a>
 </div>
