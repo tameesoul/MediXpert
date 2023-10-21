@@ -13,12 +13,13 @@
 </div>
 <table class="table table-dark">
   <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between mb-4">
-    <x-form.input  label="search" name='name' aria-placeholder="categoryname"/>
+    <x-form.input  label="search" name='name' aria-placeholder="categoryname" :value="request('name')"/>
     <select name="status" class="form-control">
       <option value="ALL">All</option>
-      <option value="active">active</option>
-      <option value="archived">archived</option>
+      <option value="active"@selected(request('status')=='active')>active</option>
+      <option value="archived"@selected(request('archived')=='archived')>archived</option>
     </select>
+    <button class="btn btn-dark">filter</button>
   </form>
     <thead>
       <tr>
@@ -59,7 +60,7 @@
     </tbody>
    
   </table>
-  {{$categories->links()}}
+  {{$categories->withQueryString()->links()}}
 @endsection
 
 
