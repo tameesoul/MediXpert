@@ -12,17 +12,16 @@ class CategoriesController extends Controller
 {
     public function index(Request $request) /// i call the request from the services container 
     {
-        $request = request(); ///// i got the object or i can pass it in fn paramter 
-        $query = Category::query();
-        if($name = $request->input("name"))
-        {
-            $query->where("name","LIKE","%{$name}%");
-        }
-        if($status = $request->input("status"))
-        {
-            $query->where("status","=",$status);
-        }
-        $categories = $query->paginate(1);
+       // $request = request(); ///// i got the object or i can pass it in fn paramter 
+       // $categories = $query->paginate(2);
+       $categories = Category::leftJoin('categories as parents', 'categories.parent_id', '=', 'parents.id')
+       ->select([
+           'categories.*',
+           'parents.name as parents_name'
+       ])->
+        filter($request->query())
+        ->orderBy('name')
+        ->paginate(2);
         return view('dashboard.categories.index',compact('categories'));
     }
 
