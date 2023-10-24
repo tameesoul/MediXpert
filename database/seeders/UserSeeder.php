@@ -14,18 +14,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name'=>"ahmedtamee",
-            'email'=>"ahmedtamee@123.com",
-            'password'=>Hash::make('Coconut'),
-            'phone_number'=>"12345678901"
-        ]);
+        // User::create([
+        //     'name'=>"ahmedtamee",
+        //     'email'=>"ahmedtamee@123.com",
+        //     'password'=>Hash::make('Coconut'),
+        //     'phone_number'=>"12345678901"
+        // ]);
 
-        DB::table('users')->insert([
-            'name'=>"ahmedtamee",
-            'email'=>"ahmedtamee@124.com",
-            'password'=>Hash::make('Coconut'),
-            'phone_number'=>"12345678909" 
-        ]);
+        // DB::table('users')->insert([
+        //     'name'=>"ahmedtamee",
+        //     'email'=>"ahmedtamee@124.com",
+        //     'password'=>Hash::make('Coconut'),
+        //     'phone_number'=>"12345678909" 
+        // ]);
     }
 }

@@ -8,8 +8,20 @@ return [
     ],
     [
         'icon'=>'far fa-circle nav-icon',
-        'route'=>'/dashboard/categories',
+        'route'=>'/categories',
         'title'=>'categories',
+        'badge'=>'new'
+    ],
+    [
+        'icon'=>'far fa-circle nav-icon',
+        'route'=>'/categories/trash',
+        'title'=>'trahses',
+        'badge'=>'new'
+    ],
+    [
+        'icon'=>'far fa-circle nav-icon',
+        'route'=>'/products',
+        'title'=>'products',
         'badge'=>'new'
     ],
 ]
