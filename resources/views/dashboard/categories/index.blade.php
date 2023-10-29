@@ -20,12 +20,13 @@
       <option value="archived"@selected(request('archived')=='archived')>archived</option>
     </select>
     <button class="btn btn-dark">filter</button>
-  </form>
+    </form>
     <thead>
       <tr>
         <th scope="col">Name</th>
         <th scope="col">ParentName</th>
         <th scope="col">description</th>
+        <th scope="col">products#</th>
         <th scope="col">status</th>
         <th scope="col">image</th>
         <th scope="col">Created_At</th>
@@ -34,9 +35,10 @@
     <tbody>
         @forelse ($categories as $category)   
         <tr>
-          <td>{{$category->name}}</td>
+          <td><a href="{{route('dashboard.categories.show',$category->id)}}">{{$category->name}}</a></td>
           <td>{{$category->parents_name}}</td>
           <td>{{$category->description}}</td>
+          <td>{{$category->products_count}}</td>
           <td>{{$category->status}}</td>
           <td><img src="{{asset('storage/'.$category->image)}}" alt="" height="80"></td>
           <td>{{$category->created_at}}</td>

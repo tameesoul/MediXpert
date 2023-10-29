@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -19,7 +20,8 @@ class CategoriesController extends Controller
            'categories.*',
            'parents.name as parents_name'
        ])->
-        filter($request->query())
+       withCount('products')
+       ->filter($request->query())
         ->orderBy('name')
         ->paginate(10);
         return view('dashboard.categories.index',compact('categories'));
@@ -46,10 +48,12 @@ class CategoriesController extends Controller
          return redirect(route('dashboard.categories.index'))
          ->with('success','category added successfully');
     }
-    public function show(string $id)
-    {
-       
-        
+    public function show(Category $category)
+    {       
+      //  $products = Product::with('categories','store');
+        return view('dashboard.categories.show',[
+            'category'=> $category
+        ]);   
     }
 
     public function edit(string $id)

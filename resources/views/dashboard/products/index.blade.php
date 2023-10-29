@@ -36,8 +36,8 @@
         @forelse ($products as $product)   
         <tr>
           <td>{{$product->name}}</td>
-          <td>{{$product->category_id}}</td>
-          <td>{{$product->store_id}}</td>
+          <td>{{$product->categories->name}}</td>
+          <td>{{$product->stores->name}}</td>
           <td>{{$product->description}}</td>
           <td>{{$product->status}}</td>
           <td><img src="{{asset('storage/'.$product->image)}}" alt="" height="80"></td>

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Rules\filters;
+use App\Models\Product;
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rules\Unique;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Unique;
 
 class Category extends Model
 {
@@ -17,6 +18,11 @@ class Category extends Model
     protected $fillable = [
         'name','parent_id','slug','description','image','status'
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class,'category_id','id');
+    }
 
     public function scopeActive(Builder $query)
     {

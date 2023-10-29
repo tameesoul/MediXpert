@@ -19,7 +19,7 @@ class ProductController extends Controller
         $products = Product::where("store_id",'=', $user->store_id)->paginate();
         }
         else
-        $products = Product::paginate(10);
+        $products = Product::with('categories','stores')->paginate(10);
         return view("dashboard.products.index", compact("products"));
     }
 

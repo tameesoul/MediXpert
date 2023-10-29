@@ -1,5 +1,7 @@
 <?php
 namespace App\Models;
+use App\Models\Store;
+use App\Models\Category;
 use App\Models\Scopes\StoreScope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -13,5 +15,14 @@ class Product extends Model
     protected static function booted()
     {
         static::addGlobalScope('store',new StoreScope());
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class,'category_id','id');
+    }
+    public function stores()
+    {
+        return $this->belongsTo(Store::class,'store_id','id');
     }
 }
