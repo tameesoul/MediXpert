@@ -34,7 +34,6 @@ class CategoriesController extends Controller
         $category = new Category();
         return view('dashboard.categories.create',compact('category','parents'));
     }
-
     public function store( CategoryRequest $request)
     {
 
