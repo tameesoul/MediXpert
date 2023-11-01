@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->belongsTo(Store::class,'store_id','id');
     }
+
+    public function Tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
