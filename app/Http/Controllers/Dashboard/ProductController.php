@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -53,14 +55,36 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrfail($id);
+        $tags = implode(',',$product->tags()->pluck('name')->toArray());
+        return view('dashboard.products.edit',compact('product','tags'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->except('tags'));
+        $tags = explode(',',$request->post('tags'));
+        $tags_id = [];
+        $saved_tags = Tag::all();
+
+        foreach($tags as $t_name)
+        {
+            $slug = Str::slug($t_name);
+            $tag = Tag::where('slug', '=', $slug)->first();
+            if(!$tag)
+            {
+                $tag = Tag::create([
+                    'name'=>$t_name,
+                    'slug'=>$slug,
+                ]);
+            }
+            $tags_id[] = $tag->id;
+        }
+        $product->tags()->sync($tags_id);
+        return redirect()->route('dashboard.products.index')
+        ->with('success','product Updated');
     }
 
     /**

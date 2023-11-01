@@ -12,6 +12,19 @@ class Product extends Model
 {
     use HasFactory;
    // protected   $table = "products";
+
+
+   protected $fillable = [
+    'name',
+    'slug',
+    'description',
+    'image',
+    'price',
+    'compare_price',
+    'store_id',
+    'category_id',
+    'status'
+   ];
     protected static function booted()
     {
         static::addGlobalScope('store',new StoreScope());
