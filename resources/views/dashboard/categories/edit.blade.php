@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-@section('title',' create categories Page')
+@section('title',' Edit categories Page')
 @section('breadcrumb')
 @parent
 <li class="breadcrumb-item active"> edit categories</li>
@@ -9,9 +9,7 @@
 <form action="{{route('dashboard.categories.update',$category->id)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    @include('dashboard.categories._form',[
-        'button_label'=>'update'
-    ]);
+ @include('dashboard.categories._form')
 </form>
 
-@endsection
+@endsection 

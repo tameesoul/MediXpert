@@ -9,21 +9,14 @@ class Profile extends Model
 {
     use HasFactory;
 
+    protected $primaryKey  ='user_id';
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'birth_date',
-        'gender',
-        'street_address',
-        'city',
-        'state',
-        'postal_code',
-        'country',
-        'local',
+        'user_id', 'first_name', 'last_name', 'birthdate', 'gender',
+        'street_address', 'city', 'state', 'postal_code', 'country',
+        'locale'
     ];
-    public $primarykey = 'user_id';
     public function user()
     {
-        return $this->belongsTo(User::class,"user_id",'id');
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

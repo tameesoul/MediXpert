@@ -1,17 +1,24 @@
 @props([
-    'name','options','checked'=>false
+    'name', 'options', 'checked' => false, 'label' => false,
 ])
-@foreach ($options as $value=>$text)
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="{{ $name }}" id="status_{{ $value }}" value="{{ $value }}" 
-            @checked(old($name, $checked) == $value)
-            {{ $attributes->class([
-                'form-check-input',
-                'is-invalid' => $errors->has($name)
-            ]) }}
-        >
-        <label class="form-check-label" for="status_{{ $value }}">
-            {{ $text }}
-        </label>
-    </div>    
+
+@if($label)
+<label for="">{{ $label }}</label>
+@endif
+
+@foreach($options as $value => $text)
+
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="{{ $name }}" value="{{ $value }}"
+        @checked(old($name, $checked) == $value)
+        {{ $attributes->class([
+            'form-check-input',
+            'is-invalid' => $errors->has($name)
+        ]) }}
+    >
+    <label class="form-check-label">
+        {{ $text }}
+    </label>
+</div>
+
 @endforeach

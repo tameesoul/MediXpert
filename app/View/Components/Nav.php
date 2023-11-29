@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Route;
 class Nav extends Component
 {
 
-    public $items;
-
     public $active;
+    public $items;
     public function __construct()
     {
-         $this->items = config('Nav'); 
-         $this->active = Route::currentRouteName();   
+        $this->items = config('nav');
+        $this->active = Route::currentRouteName();
     }
 
     /**

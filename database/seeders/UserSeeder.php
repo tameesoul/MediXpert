@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -9,23 +10,22 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+   
     public function run(): void
     {
         // User::create([
-        //     'name'=>"ahmedtamee",
-        //     'email'=>"ahmedtamee@123.com",
-        //     'password'=>Hash::make('Coconut'),
-        //     'phone_number'=>"12345678901"
-        // ]);
-
+        //     "name"=>"ahmed tamer",
+        //     "email"=> "ahmed@std.com",
+        //     "password"=> Hash::make('hello,world'),
+        //     "phone_number"=>"01102931276"
+        // ]); // this way using user model , ا //نا تعاملت مع موديل مش الجدول خلي بالك
+        // // if you wanna deal with the table use querybulider using BD facade
         // DB::table('users')->insert([
-        //     'name'=>"ahmedtamee",
-        //     'email'=>"ahmedtamee@124.com",
-        //     'password'=>Hash::make('Coconut'),
-        //     'phone_number'=>"12345678909" 
+        //     "name"=>"ahmed_tamee",
+        //     "email"=> "ahmed123@std.com",
+        //     "password"=> Hash::make('hello,world2'),
+        //     "phone_number"=>"01102931276"
         // ]);
     }
+
 }

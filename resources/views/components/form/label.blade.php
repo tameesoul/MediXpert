@@ -1,5 +1,3 @@
-@props([
-    'id' => ''
-])
+@props(['id'=>''])
 
-<label for="{{ $id }}">{{ $slot }}</label>
+<label for="$id">{{$slot}}</label>

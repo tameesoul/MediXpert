@@ -1,28 +1,32 @@
 <?php
 
+
 return [
     [
-        'icon'=>'nav-icon fas fa-tachometer-alt',
-        'route'=>'/dashboard',
-        'title'=>'Dashboard'
+        'icon' => 'nav-icon fas fa-tachometer-alt',
+        'route' => 'dashboard.',
+        'title' => 'Dashboard',
+        'active' => 'dashboard.',
+    ], 
+    [
+        'icon' => 'fas fa-tags nav-icon',
+        'route' => 'dashboard.categories.index',
+        'title' => 'Categories',
+        'badge' => 'New',
+        'active' => 'dashboard.categories.index',
     ],
     [
-        'icon'=>'far fa-circle nav-icon',
-        'route'=>'/categories',
-        'title'=>'categories',
-        'badge'=>'new'
+        'icon' => 'fas fa-tags nav-icon',
+        'route' => 'dashboard.categories.trash',
+        'title' => 'trashes',
+        'badge' => 'New',
+        'active' => 'dashboard.categories.trash',
     ],
     [
-        'icon'=>'far fa-circle nav-icon',
-        'route'=>'/categories/trash',
-        'title'=>'trahses',
-        'badge'=>'new'
+        'icon' => 'fas fa-tags nav-icon',
+        'route' => 'dashboard.products.index',
+        'title' => 'products',
+        'badge' => 'New',
+        'active' => 'dashboard.products.index',
     ],
-    [
-        'icon'=>'far fa-circle nav-icon',
-        'route'=>'/products',
-        'title'=>'products',
-        'badge'=>'new'
-    ],
-]
-?>
+    ];

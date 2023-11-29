@@ -19,4 +19,4 @@
     @endforeach
 </select>
 
-{{-- <x-form.validation-feedback :name="$name" /> --}}
+<x-form.validation-feedback :name="$name" />

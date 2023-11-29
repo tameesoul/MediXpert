@@ -1,15 +1,17 @@
 @extends('layouts.dashboard')
-@section('content')
+  <!-- Content Wrapper. Contains page content -->
 
-    @section('title','Starter Page')
-    @section('breadcrumb')
-       @parent
-    <li class="breadcrumb-item active">Starter Page</li>
-    @endsection
+  @section('title','Starter Page')
 
-   
+  @section('breadcrumb2')
+  @parent
+  <li class="breadcrumb-item active">Starter Page</li>
+  @endsection
+  @section('content')
+    <!-- /.content-header -->
+
     <!-- Main content -->
-    <div class="content">    
+    <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-6">
@@ -71,14 +73,8 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
   @endsection
+  
 
-
-
-
-
-
-
-
-
-
+  

@@ -109,7 +109,7 @@ return [
     |
     */
 
-    'faker_locale' => 'ar_EG',
+    'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +141,7 @@ return [
 
     'maintenance' => [
         'driver' => 'file',
-        // 'store'  => 'redis',
+        // 'store' => 'redis',
     ],
 
     /*

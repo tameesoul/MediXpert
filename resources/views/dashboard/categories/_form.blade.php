@@ -9,7 +9,7 @@
     </div>
 @endif
 <div class="form-group">
-    <x-form.input label='category name' class="form-control-lg " role="input" name="name" :value="$category->name" />
+    <x-form.input label="Category Name"  role="input" name="name" :value="$category->name" />
 </div>
 <div class="form-group">
     <label for="">category parent</label>
@@ -20,25 +20,24 @@
         @endforeach
     </select>
 </div>
-<div class="form-group">
-
-    <x-form.textarea label='description'  name="description" :value="$category->description"/> 
-    
+ <div class="form-group">
+    <label for="">Description</label>
+    <x-form.textarea name="description" :value="$category->description" />
 </div>
 
 <div class="form-group">
-   
-    <x-form.input label='image' type="file" name="image"/>
-    @if ($category->image)
+    <x-form.label id="image">Image</x-form.label>
+    <x-form.input type="file" name="image" accept="image/*" />
+    @if($category->image)
     <img src="{{asset('storage/'.$category->image)}}" alt="" height="80">
     @endif
 </div>
 <div class="form-group">
-    <label>Status</label>
+    <label for="">Status</label>
     <div>
-        <x-form.radio name="status" :checked="$category->status" :options="['active' => 'active', 'archived' => 'archived']"/>
+        <x-form.radio name="status" :checked="$category->status" :options="['active' => 'Active', 'archived' => 'Archived']" />
     </div>
 </div>
 <div class="form-group">
-    <button type="submit" class="btn btn-larg btn-outline-primary">{{$button_label??'save'}}</button>
+    <button type="submit" class="btn btn-larg btn-outline-primary">Save Category</button>
 </div>

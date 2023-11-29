@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('store_id')->nullable()
+            $table->foreignId('store_id')
+            ->nullable()
             ->after('phone_number')
             ->constrained('stores')
             ->nullOnDelete();
