@@ -8,7 +8,7 @@ use App\Http\Controllers\Dashboard\ProfileController;
 
 
 Route::group([
-    'middleware'=>'auth',
+    'middleware'=>['auth','auth.usertype:admin,super-admin'],
     'as'=>'dashboard.',
     'prefix'=>'dashboard'
 ],function(){

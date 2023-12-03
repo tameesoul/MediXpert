@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/laravel',function(){
+    return view('welcome');
+});
+
 Route::get('/',[HomeController::class,'index'])->name('home');
 
 
