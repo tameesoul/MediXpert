@@ -12,7 +12,7 @@ class CartController extends Controller
     public function index(CartRepository $cart)
     {
         $item = $cart->get();
-        return view('blah blag',[
+        return view('front.cart',[
             'cart'=>$item
         ]);
     }
