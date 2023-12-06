@@ -35,9 +35,9 @@ class CartModelRepository implements CartRepository
         ]);
     }
 
-    public function delete(Product $product)
+    public function delete($id)
     {
-        return Cart::where('product_id','=',$product)
+        return Cart::where('id','=',$id)
         ->where('cookie_id',$this->getCookieId())
         ->delete();
     }
