@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Cart;
+use Illuminate\Support\Str;
 
 class CartObserver
 {
@@ -11,7 +12,7 @@ class CartObserver
      */
     public function created(Cart $cart): void
     {
-        //
+        $cart->id = Str::uuid();
     }
 
     /**

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-
+use App\Providers\CartServiceProvider;
 return [
 
     /*
@@ -168,7 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\CartServiceProvider::class,
+        CartServiceProvider::class,
     ])->toArray(),
 
     /*

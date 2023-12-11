@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Repositories\Cart;
-
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-
-
 class CartModelRepository implements CartRepository
 {
 

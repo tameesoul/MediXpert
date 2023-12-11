@@ -8,6 +8,7 @@ use NumberFormatter;
 
 class Currency
 {
+    
     public static function format($amount, $currency = null)
     {
         $baseCurrency = config('app.currency', 'USD');

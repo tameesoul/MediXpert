@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\front;
-
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
-
 class CartController extends Controller
 {
     public function index(CartRepository $cart)
@@ -16,10 +14,6 @@ class CartController extends Controller
             'cart'=>$item
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request , CartRepository $cart)
     {
         $request->validate([
