@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\CartObserver;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,8 +34,6 @@ class Cart extends Model
 
     public static function booted()
     {
-        Cart::creating(function(Cart $cart){
-            $cart->id = Str::uuid();
-        });
+        static::observe(CartObserver::class);
     }
 }

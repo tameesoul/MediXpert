@@ -6,13 +6,16 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Database\Eloquent\Collection;
+
 class CartModelRepository implements CartRepository
 {
 
-    public function get()
+    public function get(): Collection
     {
-        return Cart::where('cookie_id','=',$this->getCookieId());
+        return Cart::where('cookie_id', '=', $this->getCookieId())->get();
     }
+    
 
     public function add(Product $product ,$quantity = 1)
     {
@@ -24,13 +27,14 @@ class CartModelRepository implements CartRepository
         ]);
     }
 
-    public function update(Product $product,$quantity)
+    public function update($product, $quantity)
     {
-        return Cart::where('cookie_id','=',$this->getCookieId())
-        ->update([
-            'quantity'=>$quantity
-        ]);
+        return Cart::where('cookie_id', '=', $this->getCookieId())
+            ->update([
+                'quantity' => $quantity
+            ]);
     }
+    
 
     public function delete($id)
     {

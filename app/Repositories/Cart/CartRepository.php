@@ -9,7 +9,7 @@ interface CartRepository
     public function get() :Collection ;
 
     public function add(Product $product ,$quantity = 1);
-    public function update($quantity,$id);
+    public function update($product,$quantity);
 
     public function delete($id);
 
