@@ -9,9 +9,9 @@ class CartController extends Controller
 {
     public function index(CartRepository $cart)
     {
-        $cart = $cart->get();
+         $cart->get();
         return view('front.cart',[
-            'item'=>$cart
+            'cart'=>$cart
         ]);
     }
     public function store(Request $request , CartRepository $cart)

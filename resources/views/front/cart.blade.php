@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <!-- End Cart List Title -->
-                @foreach ($item->get() as $item)
+                @foreach ($cart->get() as $item)
                 <!-- Cart Single List list -->
                 <div class="cart-single-list" id="{{ $item->id }}">
                     <div class="row align-items-center">

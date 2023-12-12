@@ -45,14 +45,18 @@ class CartModelRepository implements CartRepository
 
     public function empty()
     {
-        Cart::where('cookie_id','=',$this->getCookieId());
+        Cart::where('cookie_id', '=', $this->getCookieId())->delete();
     }
 
-    public function total() :float
+    public function total(): float
     {
-        return Cart::join('products','products.id','=','carts.product_id' )
-        ->selectRaw('SUM(products.price * carts.quantity as total)')->value('total');
+        $result = Cart::join('products', 'products.id', '=', 'carts.product_id')
+            ->selectRaw('SUM(products.price * carts.quantity) as total')
+            ->value('total');
+    
+        return $result ? (float) $result : 0.0;
     }
+    
 
     public function getCookieId()
     {
